@@ -1,0 +1,184 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue233;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c93333;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl560\sa321\partightenfactor0
+
+\f0\b\fs48 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 git cheat-sheet\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf2 The git command-line utility has plenty of inconsistencies {\field{\*\fldinst{HYPERLINK "http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/"}}{\fldrslt \cf3 \ul \ulc3 \strokec3 http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/}}\
+A GUI like {\field{\*\fldinst{HYPERLINK "http://sourcetreeapp.com/"}}{\fldrslt \cf3 \ul \ulc3 \strokec3 http://sourcetreeapp.com}} is often helpful, but staying on the command line usually quicker. This is a list of the commands I use most frequently, listed by funcional category:\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+current state\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git status
+\f1  list which (unstaged) files have changed\uc0\u8232 
+\f2 git diff
+\f1  list (unstaged) changes to files\uc0\u8232 
+\f2 git log
+\f1  list recent commits\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+adding files to repo\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git add fn
+\f1  stage file\uc0\u8232 
+\f2 git commit -m 'message'
+\f1  commit file\uc0\u8232 
+\f2 git commit -am 'message'
+\f1  add/commit all changes from all tracked files (no untracked files) in one go\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+undoing previous actions\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "http://git-scm.com/book/en/Git-Tools-Rewriting-History"}}{\fldrslt 
+\f1\b0\fs24 \cf3 \ul \ulc3 \strokec3 http://git-scm.com/book/en/Git-Tools-Rewriting-History}}
+\f1\b0\fs24 \uc0\u8232 
+\f2 git reset filename
+\f1  unstage file\uc0\u8232 
+\f2 git commit --amend -m 'message'
+\f1  alter the last commit (add any staged files, new comment)\uc0\u8232 
+\f2 git reset --soft HEAD^
+\f1  undo previous commit, put changes in staging\uc0\u8232 
+\f2 git reset --hard HEAD^
+\f1  Undo last commit and all changes\uc0\u8232 
+\f2 git reset --hard HEAD^^
+\f1  Undo two (^^) last commits and all changes\uc0\u8232 
+\f2 git checkout -- cats.html index.html
+\f1  Undo all changes that were made to files cats.html and index.html\uc0\u8232 
+\f2 git rebase --onto <commit-id>\\^ <commit-id> HEAD
+\f1  remove specific commit from repository. the \\ in ^ is just an escape char to make zsh play nice and is not necessary if using bash.\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+remote repositories\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git remote add origin git@example.com:example/petshop.git
+\f1  add a remote repository\uc0\u8232 
+\f2 git push -u origin master
+\f1  push current local repo to remote. -u sets it to default for the future\uc0\u8232 
+\f2 git remote -v show
+\f1  show the available remote repositories that have been added\uc0\u8232 
+\f2 git pull
+\f1  checkout and merge remote changes in one go\uc0\u8232 
+\f2 git fetch origin
+\f1  update the local cache of the remote repository\uc0\u8232 
+\f2 git remote -v update
+\f1  bring remote refs up to date (and -v show which branches were updated)\uc0\u8232 
+\f2 git status -uno
+\f1  will tell you whether the branch you are tracking is ahead, behind or has diverged. If it says nothing, the local and remote are the same.\uc0\u8232 
+\f2 git show-branch *master
+\f1  will show you the commits in all of the branches whose names end in master (eg master and origin/master).\uc0\u8232 
+\f2 git show remote origin
+\f1  show local<->remote branch tracking and sync status\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+Examine changes on remote, without pulling them\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git fetch origin
+\f1 \uc0\u8232 
+\f2 git log HEAD..origin/master --oneline
+\f1  shows commit messages\uc0\u8232 
+\f2 git diff HEAD..origin/master
+\f1  shows all changes on remote compared to local HEAD\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+Branches\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git branch
+\f1  list currently existing branches\uc0\u8232 
+\f2 git branch [branchname]
+\f1  create new branch\uc0\u8232 
+\f2 git checkout branchname
+\f1  move to that branch\uc0\u8232 
+\f2 git checkout -b branchname
+\f1  create and checkout new branch in one go\uc0\u8232 
+\f2 git branch -d branchname
+\f1  remove branch\
+\pard\pardeftab720\sl280\sa319\partightenfactor0
+
+\f0\b \cf2 \
+merging branch back to master\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0 \cf2 git checkout master; git merge branchname;
+\f1  conditions for fast-forward merge - nothing new on master between branch start/end points\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+branches on remote\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git fetch origin``git branch -r
+\f1  list remote branches (after a fetch)\uc0\u8232 
+\f2 git push origin :branchname
+\f1  delete remote branch 'branchname'\uc0\u8232 
+\f2 git remote prune origin
+\f1  clean up deleted remote branches (let's say someone else deleted a branch on the remote)\uc0\u8232 
+\f2 git show remote origin
+\f1  show local<->remote branch tracking and sync status (duplicate info under "remote repositories")\
+\pard\pardeftab720\sl280\sa319\partightenfactor0
+
+\f0\b \cf2 \
+push local branch to differently named remote branch. Eg Heroku only deploys master\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0 \cf2 git push heroku yourbranch:master
+\f1  simple form\uc0\u8232 
+\f2 git push heroku-staging staging:master
+\f1  (localBranchName:remoteBranchName)\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+tagging\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2\b0\fs24 \cf2 git tag
+\f1  list all tags\uc0\u8232 
+\f2 git checkout v0.0.1
+\f1  checkout code\uc0\u8232 
+\f2 git tag -a v0.0.3
+\f1  -m 'Version 0.0.3' add new tag\uc0\u8232 
+\f2 git push --tags
+\f1  push new tags to remote\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f0\b\fs28 \cf2 \
+dealing with large files - keep them outside the repo on an ssh machine.\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "http://stackoverflow.com/questions/540535/managing-large-binary-files-with-git"}}{\fldrslt 
+\f1\b0\fs24 \cf3 \ul \ulc3 \strokec3 http://stackoverflow.com/questions/540535/managing-large-binary-files-with-git}}
+\f1\b0\fs24 \uc0\u8232 {\field{\*\fldinst{HYPERLINK "http://git-annex.branchable.com/walkthrough/"}}{\fldrslt \cf3 \ul \ulc3 \strokec3 http://git-annex.branchable.com/walkthrough/}} #see ssh section\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2 \cf2 git annex add mybigfile
+\f1 \uc0\u8232 
+\f2 git commit -m 'add mybigfile'
+\f1 \uc0\u8232 
+\f2 git push myremote
+\f1  
+\f2 git annex copy --to myremote mybigfile
+\f1  this command copies the actual content to myremote\uc0\u8232 
+\f2 git annex drop mybigfile
+\f1  remove content from local repo\uc0\u8232 
+\f2 git annex get mybigfile
+\f1  retrieve the content\uc0\u8232 
+\f2 git annex copy --from myremote mybigfile
+\f1 specify the remote from which to get the file\
+}
